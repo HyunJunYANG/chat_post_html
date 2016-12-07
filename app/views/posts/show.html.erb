@@ -1,0 +1,31 @@
+<h2><%= bulletin_name params[:bulletin_id] %></h2>
+
+<table class='table'>
+<tr>
+  <th>Title</th>
+  <td><%= @post.title %></td>
+</tr>
+<tr>
+  <th>Created at</th>
+  <td><%= @post.created_at %></td>
+</tr>
+<tr>
+  <th>Content</th>
+  <td></td>
+</tr>
+<tr>
+  <th></th>
+  <td></td>
+</tr>
+</table>
+
+<%= @post.content %>
+<%= image_tag("#{@post.picture}") %>
+
+<hr>
+
+<%= link_to 'Edit', edit_bulletin_post_path(@post.bulletin, @post), class: 'btn btn-default' %>
+<%= link_to 'Destroy', [@post.bulletin, @post], method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-default' %>
+<%= link_to 'Back', bulletin_posts_path, class: 'btn btn-default' %>
+
+<%= render "comments/comments" %>

@@ -1,0 +1,47 @@
+<h2><%= bulletin_name params[:bulletin_id] %></h2>
+
+<table class="table" id="index_table">
+  <thead>
+    <tr class="post_head">
+      <th class = "post_index_title" width = "60%">Title</th>
+      <th class = "post_index_title" width = "30%">날짜</th>
+      <th class = "post_index_title" width = "10%">조회수</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr class="post_list">
+        <td class = "post_title">
+          <h5><%= link_to post.title, bulletin_post_path(post.bulletin, post), {style: "color: black"} %>
+          <strong><%= link_to "[#{post.comments.count}]", bulletin_post_path(post.bulletin, post), {style: "color: black"}  %></strong></h5>
+        </td>
+
+        <td class = "post_index_little_title">
+          <% if post.created_at > Time.now.beginning_of_day %>
+            <%="#{time_ago_in_words(post.created_at)} ago"%>
+          <% else %>
+            <%= post.created_at.strftime("%b %d, %Y") %>
+          <% end %>
+        </td>
+        <td class = "post_index_little_title"><%= post.impressionist_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<div style="float: left; width: 300px">
+  <%= form_tag(bulletin_posts_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+
+<div style="float: right; width: 100px">
+  <%= link_to '글쓰기', new_bulletin_post_path, class: 'btn btn-default', id:"post_write", style: "background-color:#50c1e9" %>
+</div>
+
+<div align="center">
+  <%= will_paginate(@posts) %>
+</div>

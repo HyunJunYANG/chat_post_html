@@ -1,0 +1,11 @@
+<% comment = @post.comments.new %>
+<div id="comments_form_<%=@post.id%>">
+<%= simple_form_for([@post, comment], remote: true, html: {class: 'horizontal_form', wrapper: :horizontal_form,} ) do | f | %>
+  <div class='form-inputs'>
+    <%= f.input :body, label: false, placeholder: 'Add a comment.',  input_html: { rows: 2, style: 'width: 1000px' } %>
+  </div>
+  <div class='form-actions'>
+    <%= f.button :submit, class:"btn btn-default", id:"add_content", style: "background-color:#50c1e9" %>
+  </div>
+<% end %>
+</div>

@@ -1,0 +1,29 @@
+<div class="chat_window">
+  <div class="top_menu">
+    <div class="buttons">
+      <div id="exit_room" class="button close"></div>
+    </div>
+    <div class="title">Chat</div>
+  </div>
+  <ul id="messages" class="messages" data-chat-room-id="<%= @chat_room.id %>">
+    <%= render @chat_room.messages %>
+  </ul>
+  <div class="bottom_wrapper clearfix">
+    <%= form_for @message, url: '#' do |f| %>
+      <%= hidden_field_tag 'chat_room_id', @chat_room.id %>
+
+      <div class="message_input_wrapper">
+        <%= f.text_field :body, class: 'message_input' %>
+      </div>
+      <%= f.submit "전송", class: 'send_message' %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $('#message_body').keypress(function (e) {
+  if (e.which == 13) {
+      $('form#new_message').submit();
+  }
+  });
+</script>
